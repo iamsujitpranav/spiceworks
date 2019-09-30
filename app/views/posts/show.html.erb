@@ -1,0 +1,46 @@
+<div class="post-comments">
+	<h2><%= @post.title%></h2>
+	<small>Submitted <%= time_ago_in_words(@post.created_at) %> ago</small>
+	<p><%= @post.body %></p><br/>
+	
+	<h2>Comments</h2>
+
+  <%= form_for [@post, Comment.new] do |f| %>
+	  <div class="form-group">
+		  <%= f.text_area :body, placeholder: "Add a comment" %><br/>
+		  <%= f.submit "Add Comment" %>
+	  </div>
+	<% end %>
+	<div class="comments-nav">
+    <ul class="nav nav-pills">
+      <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                there are <%= @post.comments.count%> comments <span class="caret"></span>
+              </a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <ul>
+		  <%= render @post.comments  %>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	$('[data-toggle="collapse"]').on('click', function() {
+    var $this = $(this),
+            $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
+    if($parent === undefined) { /* Just toggle my  */
+        $this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+        return true;
+    }
+
+    /* Open element will be close if parent !== undefined */
+    var currentIcon = $this.find('.glyphicon');
+    currentIcon.toggleClass('glyphicon-plus glyphicon-minus');
+    $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+
+});
+</script>

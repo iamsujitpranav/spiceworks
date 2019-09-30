@@ -1,0 +1,42 @@
+<div class="media">
+  <!-- first comment -->
+<%#binding.pry%>
+	<div class="media-heading">
+    <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapse<%=comment.id.humanize.camelcase%>" aria-expanded="false" aria-controls="collapseExample">
+    	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    </button> Submitted <%= time_ago_in_words(comment.created_at) %>
+  </div>
+  <div class="panel-collapse collapse in" id="collapse<%=comment.id.humanize.camelcase%>">
+  	<div class="media-left">
+      <div class="vote-wrap">
+        <div class="save-post">
+          <a href="#"><span class="glyphicon glyphicon-star" aria-label="Kaydet"></span></a>
+        </div>
+        <div class="vote up">
+          <i class="glyphicon glyphicon-menu-up"></i>
+        </div>
+        <div class="vote inactive">
+          <i class="glyphicon glyphicon-menu-down"></i>
+        </div>
+      </div>
+      <!-- vote-wrap -->
+    </div>
+    <div class="media-body">
+    	<p><%= comment.body %></p>
+    	<div class="comment-meta">
+        <span>
+          <a class="" role="button" data-toggle="collapse" href="#replyComment<%=comment.id.humanize.camelcase%>" aria-expanded="false" aria-controls="collapseExample">reply</a>
+        </span>
+        <div class="collapse" id="replyComment<%=comment.id.humanize.camelcase%>">
+				  <%= form_for [comment, Comment.new] do |f| %>
+					  <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
+					  <%= f.submit "Reply"  %>
+				  <% end %>
+				</div>
+			</div>	  
+
+		  <%= render comment.comments %>
+		</div>  
+	</div>
+</div>			
+
