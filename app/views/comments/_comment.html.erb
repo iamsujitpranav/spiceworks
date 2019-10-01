@@ -1,10 +1,9 @@
 <div class="media">
   <!-- first comment -->
-<%#binding.pry%>
 	<div class="media-heading">
     <button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapse<%=comment.id.humanize.camelcase%>" aria-expanded="false" aria-controls="collapseExample">
     	<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-    </button> Submitted <%= time_ago_in_words(comment.created_at) %>
+    </button> Submitted <%= time_ago_in_words(comment.created_at)  + " by " + comment.user.full_name %>
   </div>
   <div class="panel-collapse collapse in" id="collapse<%=comment.id.humanize.camelcase%>">
   	<div class="media-left">
@@ -29,6 +28,7 @@
         </span>
         <div class="collapse" id="replyComment<%=comment.id.humanize.camelcase%>">
 				  <%= form_for [comment, Comment.new] do |f| %>
+				  	<%= f.hidden_field :user_id, value: current_user.id%>
 					  <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
 					  <%= f.submit "Reply"  %>
 				  <% end %>

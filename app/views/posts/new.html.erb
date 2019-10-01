@@ -1,4 +1,5 @@
 <%= form_with model: @post do |f| %>
+	<%= f.hidden_field :user_id, value: current_user.id%>
 	<%= label_tag(:title, "Title") %>
 	<br/>
 	<%= f.text_field :title, placeholder: "Title"%>

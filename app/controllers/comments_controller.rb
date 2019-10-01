@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
 
 	def create
 		commentable_comments
-
+    
 	  if @comments.save
 	    redirect_back(fallback_location: root_path)
 	  else
@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 	private
 
 	def comment_params
-	  params.require(:comment).permit(:body)
+	  params.require(:comment).permit(:body, :user_id)
 	end
 
 	def find_commentable
@@ -35,5 +35,6 @@ class CommentsController < ApplicationController
     else
     	@comments = @post.comments.new(comment_params)
     end	
+    @comments.user = current_user
 	end
 end

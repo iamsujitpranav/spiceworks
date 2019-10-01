@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+
+.sign-out {
+	text-align: right;
+	font-weight: bold;
+}
